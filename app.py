@@ -1,5 +1,6 @@
 """FastAPI service: ask a question about the Python Tutorial, get a grounded answer."""
 import os
+import re
 from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
@@ -21,9 +22,13 @@ SYSTEM_PROMPT = (
     "You answer questions about the Python 3 Tutorial. "
     "Use ONLY the numbered passages given to you. "
     "Do not use outside knowledge, even if you know the answer. "
-    "If the passages do not contain the answer, or the question is not about "
-    "what the passages cover, reply with exactly NOT_IN_DOCS and nothing else. "
-    "Otherwise give a short, clear answer and add the passage numbers like [1] "
+    "Answer only if at least one passage directly answers the question. "
+    "If the passages only mention related words or topics but do not actually "
+    "answer the question, reply with exactly NOT_IN_DOCS and nothing else. "
+    "Do not stretch an example to fit a different question. "
+    "If a passage states a limit or caveat that matters for the question, "
+    "include it. "
+    "Keep the answer short and add passage numbers in square brackets like [1] "
     "after the claims they support."
 )
 
@@ -98,6 +103,8 @@ def ask(req: AskRequest):
     if "NOT_IN_DOCS" in answer:
         return AskResponse(answer=NOT_FOUND_MESSAGE, grounded=False, sources=[])
 
+    cited = {int(n) for n in re.findall(r"[\[【](\d+)[\]】]", answer)}
+    used = [h for i, h in enumerate(hits, 1) if i in cited] or hits
     sources = [
         Source(
             section_id=h["section_id"],
@@ -106,6 +113,6 @@ def ask(req: AskRequest):
             text=h["text"],
             score=h["score"],
         )
-        for h in hits
+        for h in used
     ]
     return AskResponse(answer=answer, grounded=True, sources=sources)

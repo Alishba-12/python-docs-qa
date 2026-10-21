@@ -2,42 +2,34 @@
   {
     "question": "What happens if I change a list while I am looping over it?",
     "grounded": true,
-    "answer": "Changing a list while you are iterating over it can be tricky and may lead to unexpected results; it’s usually safer to iterate over a copy of the list or build a new collection instead【5】.",
+    "answer": "Modifying a list while you are iterating over it can be tricky and may lead to unexpected behavior; the usual advice is to loop over a copy of the collection or build a new one instead【5】.",
     "sources": [
-      "controlflow.html#the-range-function",
-      "introduction.html#lists",
-      "datastructures.html#looping-techniques",
       "controlflow.html#for-statements"
     ]
   },
   {
     "question": "How do I make a variable private inside a class?",
     "grounded": true,
-    "answer": "Use a double‑underscore name (e.g. `self.__var`).  Python will mangle it to `_ClassName__var`, giving a class‑private attribute that won’t be overridden by subclasses.  (See the name‑mangling rules in the “Private Variables” section.) [2]",
+    "answer": "Use a double‑underscore prefix. Any identifier of the form `__spam` (at least two leading underscores and at most one trailing underscore) is automatically renamed to `_ClassName__spam` when the class body is compiled, giving a class‑private name that avoids clashes with subclasses [2]. This is the Python mechanism for “private” variables (note that true private variables don’t exist; a single leading underscore is only a convention for non‑public API) [2].",
     "sources": [
-      "classes.html#private-variables",
-      "classes.html#class-and-instance-variables",
-      "classes.html#class-objects"
+      "classes.html#private-variables"
     ]
   },
   {
     "question": "What is the difference between a tuple and a list?",
     "grounded": true,
-    "answer": "Tuples are immutable sequence objects (you cannot change, add, or remove their items) and are typically used for heterogeneous collections, while lists are mutable sequence objects (their contents can be altered) and are usually used for homogeneous collections. Tuples are created with commas (often shown with parentheses) and lists with square brackets. [1][5]",
+    "answer": "Tuples are immutable sequence objects (you cannot change, add, or remove their items) and are usually used for heterogeneous collections that are accessed by indexing, unpacking, or attribute (e.g., namedtuple) [1][3].  \nLists are mutable sequence objects (their contents can be changed, extended, or reordered) and are typically used for homogeneous collections that are accessed by iterating, indexing, or slicing [1][5].",
     "sources": [
       "datastructures.html#tuples-and-sequences",
-      "datastructures.html#sets",
       "introduction.html#lists"
     ]
   },
   {
     "question": "How do I reverse a string?",
     "grounded": true,
-    "answer": "You can reverse a string by iterating over it from the end to the start.  \nOne way is to define an iterator class:\n\n```python\nclass Reverse:\n    def __init__(self, data):\n        self.data = data\n        self.index = len(data)\n\n    def __iter__(self):\n        return self\n\n    def __next__(self):\n        if self.index == 0:\n            raise StopIteration\n        self.index -= 1\n        return self.data[self.index]\n```\n\nIterating over an instance of `Reverse('spam')` yields “m a p s” in reverse order [2].\n\nA shorter alternative is a generator function:\n\n```python\ndef reverse(data):\n    for index in range(len(data)-1, -1, -1):\n        yield data[index]\n```\n\nLooping over `reverse('golf')` prints “f l o g”, i.e., the string reversed [5].",
+    "answer": "You can create an iterator (or generator) that walks a sequence from the end to the start. For example, a generator:\n\n```python\ndef reverse(data):\n    for index in range(len(data)-1, -1, -1):\n        yield data[index]\n```\n\nIterating over it yields the characters of the string in reverse order:\n\n```python\nfor ch in reverse('golf'):\n    print(ch)      # f l o g\n```\n\n[5]\n\nAlternatively, a class‑based iterator works the same way:\n\n```python\nclass Reverse:\n    def __init__(self, data):\n        self.data = data\n        self.index = len(data)\n    def __iter__(self):\n        return self\n    def __next__(self):\n        if self.index == 0:\n            raise StopIteration\n        self.index -= 1\n        return self.data[self.index]\n```\n\nUsing it:\n\n```python\nrev = Reverse('spam')\nfor ch in rev:\n    print(ch)      # m a p s\n```\n\n[2]",
     "sources": [
       "classes.html#iterators",
-      "introduction.html#text",
-      "inputoutput.html#fancier-output-formatting",
       "classes.html#generators"
     ]
   },
@@ -50,17 +42,16 @@
   {
     "question": "How do I sort a list?",
     "grounded": true,
-    "answer": "Use the list’s `sort()` method to sort the items in place:\n\n```python\nfruits = ['orange', 'apple', 'pear']\nfruits.sort()          # sorts the list itself\nprint(fruits)          # ['apple', 'orange', 'pear']\n```\n\n`list.sort()` sorts the list in place and returns `None` [1][4].  \nIf you want a new sorted list without changing the original, use the built‑in `sorted()` function, which returns a new list in sorted order [5].",
+    "answer": "Use the list’s **`sort`** method to sort it in place:\n\n```python\nmy_list.sort()          # sorts the list itself\n# optional: my_list.sort(key=..., reverse=True)\n```\n\nIf you want a sorted copy without changing the original, use the built‑in **`sorted`** function, which returns a new list:\n\n```python\nnew_list = sorted(my_list)\n```\n\nBoth approaches sort the items in ascending order by default.  \n[1] – list.sort() description and example.  \n[5] – sorted() function returns a new sorted list.",
     "sources": [
       "datastructures.html#more-on-lists",
-      "stdlib2.html#tools-for-working-with-lists",
       "datastructures.html#looping-techniques"
     ]
   },
   {
     "question": "Why does 0.1 + 0.2 not equal 0.3?",
     "grounded": true,
-    "answer": "Because decimal fractions like 0.1 and 0.2 cannot be represented exactly as binary floating‑point numbers, Python stores them as the nearest binary64 approximations. The sum of those approximations is therefore not the exact binary representation of 0.3, so the comparison fails. In other words, the stored values are slightly off (e.g., 0.1 is actually 0.10000000000000000555…), and adding them yields a result that differs from the exact decimal 0.3 [1][3][4].",
+    "answer": "Because decimal fractions like 0.1 (and likewise 0.2) cannot be represented exactly as a binary floating‑point number, Python stores the nearest binary fraction instead. The inexact stored values mean that adding them does not produce the exact decimal 0.3 — the sum is a tiny approximation, not the mathematically exact result. This representation error is why expressions such as 0.1 + 0.1 + 0.1 or 0.1 + 0.2 do not evaluate to exactly 0.3 [1][3].",
     "sources": [
       "floatingpoint.html#representation-error",
       "floatingpoint.html#floating-point-arithmetic-issues-and-limitations"
@@ -69,22 +60,17 @@
   {
     "question": "What is the difference between is and ==?",
     "grounded": true,
-    "answer": "`is` tests whether two variables refer to the **exact same object** (object identity), whereas `==` is a comparison operator that tests whether the **values are equal**. The tutorial notes that “the operators is and is not compare whether two objects are really the same object” and that `==` is one of the normal comparison operators. [2]",
+    "answer": "`is` tests whether two variables refer to the **exact same object** (object identity), whereas `==` is a regular comparison operator that tests whether the **values are equal**.  The tutorial notes that “the operators is and is not compare whether two objects are really the same object” and that “all comparison operators … have the same priority” (which includes `==`)【2】.",
     "sources": [
-      "introduction.html#first-steps-towards-programming",
-      "datastructures.html#more-on-conditions",
-      "floatingpoint.html#floating-point-arithmetic-issues-and-limitations"
+      "datastructures.html#more-on-conditions"
     ]
   },
   {
     "question": "How do I run a Python script from the command line?",
     "grounded": true,
-    "answer": "Run the interpreter and give the script’s filename as an argument, e.g.:\n\n```bash\npython myscript.py\n```\n\nWhen the interpreter is called with a file name argument it reads and executes that script [2]. You can also add options such as `-i` to enter interactive mode after the script runs [1].",
+    "answer": "Run the interpreter and give the script’s filename as an argument, e.g.:\n\n```bash\npython myscript.py   # plus any additional arguments\n```\n\nWhen Python is invoked with a file name it reads and executes that script [2].  \nIf you want to stay in interactive mode after the script finishes, add `-i` before the script name [1].",
     "sources": [
-      "interpreter.html#invoking-the-interpreter",
-      "appendix.html#executable-python-scripts",
-      "interpreter.html#argument-passing",
-      "stdlib.html#command-line-arguments"
+      "interpreter.html#invoking-the-interpreter"
     ]
   },
   {
