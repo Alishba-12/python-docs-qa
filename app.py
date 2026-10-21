@@ -13,7 +13,7 @@ load_dotenv()
 
 GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 MIN_COSINE = float(os.getenv("MIN_COSINE", "0.25"))
-TOP_K = 5
+TOP_K = 10
 NOT_FOUND_MESSAGE = (
     "The Python Tutorial documentation does not contain an answer to this question."
 )

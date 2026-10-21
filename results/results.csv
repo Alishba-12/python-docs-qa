@@ -5,3 +5,10 @@ bm25_only,bm25,data,5,18,20,0.9000,0.7000
 chunk75_hybrid,hybrid,data_exp/chunk75,5,18,20,0.9000,0.6500
 chunk300_hybrid,hybrid,data_exp/chunk300,5,18,20,0.9000,0.6500
 bge_small_hybrid,hybrid,data_exp/bge,5,19,20,0.9500,0.8000
+extra_vector_k5,vector,data,5,1,2,0.5000,0.5000
+extra_vector_k10,vector,data,10,1,2,0.5000,0.5000
+extra_bm25_k5,bm25,data,5,1,2,0.5000,0.5000
+extra_bm25_k10,bm25,data,10,1,2,0.5000,0.5000
+extra_hybrid_k5,hybrid,data,5,0,2,0.0000,0.0000
+extra_hybrid_k10,hybrid,data,10,2,2,1.0000,0.0000
+baseline_k10,hybrid,data,10,19,20,0.9500,0.7000
