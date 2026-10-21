@@ -26,6 +26,7 @@ FALLBACK_PAGES = [
 def fetch(url):
     response = requests.get(url, headers=HEADERS, timeout=30)
     response.raise_for_status()
+    response.encoding = "utf-8"
     return response.text
 
 
