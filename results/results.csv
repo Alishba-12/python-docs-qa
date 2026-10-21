@@ -1,2 +1,7 @@
 label,mode,index_dir,k,hits,total,hit_rate,hit_rate_at_1
 baseline,hybrid,data,5,19,20,0.9500,0.7000
+vector_only,vector,data,5,18,20,0.9000,0.8500
+bm25_only,bm25,data,5,18,20,0.9000,0.7000
+chunk75_hybrid,hybrid,data_exp/chunk75,5,18,20,0.9000,0.6500
+chunk300_hybrid,hybrid,data_exp/chunk300,5,18,20,0.9000,0.6500
+bge_small_hybrid,hybrid,data_exp/bge,5,19,20,0.9500,0.8000
