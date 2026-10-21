@@ -1,0 +1,22 @@
+[
+  {"question": "How do I loop over a dictionary and get the key and the value together?", "section_id": "datastructures.html#looping-techniques"},
+  {"question": "How can I count from 0 to 50 in steps of 5 in a loop?", "section_id": "controlflow.html#the-range-function"},
+  {"question": "How do I stop a loop early or jump straight to the next iteration?", "section_id": "controlflow.html#break-and-continue-statements"},
+  {"question": "Why is a list used as a default argument value shared between function calls?", "section_id": "controlflow.html#default-argument-values"},
+  {"question": "How do I write a function that accepts any number of positional arguments?", "section_id": "controlflow.html#arbitrary-argument-lists"},
+  {"question": "How can I use a list as a last-in first-out structure?", "section_id": "datastructures.html#using-lists-as-stacks"},
+  {"question": "Why is a list slow as a first-in first-out queue and what should I use instead?", "section_id": "datastructures.html#using-lists-as-queues"},
+  {"question": "How do I remove duplicate items from a collection?", "section_id": "datastructures.html#sets"},
+  {"question": "How do I make sure some code runs whether or not an exception happened?", "section_id": "errors.html#defining-clean-up-actions"},
+  {"question": "How do I create my own exception class?", "section_id": "errors.html#user-defined-exceptions"},
+  {"question": "How do I save a Python data structure to a file as JSON?", "section_id": "inputoutput.html#saving-structured-data-with-json"},
+  {"question": "How do I put a variable value inside a string using an f-string?", "section_id": "inputoutput.html#formatted-string-literals"},
+  {"question": "What is the best way to open a file so that it is closed automatically?", "section_id": "inputoutput.html#reading-and-writing-files"},
+  {"question": "Where does Python look for a module when I import it?", "section_id": "modules.html#the-module-search-path"},
+  {"question": "How do I make a file work both as an importable module and as a script?", "section_id": "modules.html#executing-modules-as-scripts"},
+  {"question": "How do I create an isolated environment for one project?", "section_id": "venv.html#creating-virtual-environments"},
+  {"question": "How do I install or upgrade a specific version of a package?", "section_id": "venv.html#managing-packages-with-pip"},
+  {"question": "What is the difference between a variable shared by all objects of a class and one that belongs to each object?", "section_id": "classes.html#class-and-instance-variables"},
+  {"question": "How do I write a function that gives back values one at a time using yield?", "section_id": "classes.html#generators"},
+  {"question": "How do I get today's date and work out the difference between two dates?", "section_id": "stdlib.html#dates-and-times"}
+]

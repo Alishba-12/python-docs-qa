@@ -1,0 +1,2 @@
+label,mode,index_dir,k,hits,total,hit_rate,hit_rate_at_1
+baseline,hybrid,data,5,19,20,0.9500,0.7000
