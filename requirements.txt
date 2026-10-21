@@ -1,0 +1,10 @@
+requests
+beautifulsoup4
+sentence-transformers
+rank-bm25
+numpy
+fastapi
+uvicorn
+pydantic
+groq
+python-dotenv
